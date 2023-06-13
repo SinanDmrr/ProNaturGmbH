@@ -14,22 +14,22 @@ namespace ProNaturGmbH
         // OBJEKT ERZEUGUNG DER EIGENEN KLASSE
         private SqLiteQuerys sqlQueryToDb = new SqLiteQuerys();
 
+        private string tableName = "Produkt";
+
 
         public ProduktVerwaltung()
         {
             InitializeComponent();                        
                         
             // EIGENE METHODE 1
-            DataTable dbToDt = sqlQueryToDb.LoadDbToDataTable(databaseConnection);
+            DataTable dbToDt = sqlQueryToDb.LoadDbToDataTable(tableName, databaseConnection);
             // EIGENE METHODE 2 in der foreach
-            foreach (string category in sqlQueryToDb.dtToCb(dbToDt))
+            foreach (string category in sqlQueryToDb.dtToCb("Kategorie",dbToDt))
             {
                 comboBox_Kategorie.Items.Add(category);
             }
-                        
             // Eigens erstellte Methode um die DataGridView mit der DataBase zu befüllen
             dgv.DataSource = dbToDt;
-            
         }
 
 
@@ -52,8 +52,8 @@ namespace ProNaturGmbH
                     return;
                 }                               
             }
-            clearAllFields();            
-            dgv.DataSource = sqlQueryToDb.LoadDbToDataTable(databaseConnection);
+            clearAllFields();
+            dgvUpdate();
         }
 
 
@@ -87,7 +87,7 @@ namespace ProNaturGmbH
                 string newValues = ID + ", " + newName + ", " + newMarke + ", " + newKategorie + ", " + newPreis;
                 string oldValues = ID + ", " + oldName + ", " + oldMarke + ", " + oldKategorie + ", " + oldPreis;
                 MessageBox.Show("Alte Werte: " + oldValues + "\nNeue Werte: " + newValues);
-                dgv.DataSource = sqlQueryToDb.LoadDbToDataTable(databaseConnection);
+                dgvUpdate();
             }
         }
 
@@ -96,8 +96,8 @@ namespace ProNaturGmbH
         {
             string id = dgv.SelectedRows[0].Cells[0].Value.ToString();
             
-            sqlQueryToDb.deleteFromDb(id, databaseConnection);
-            dgv.DataSource = sqlQueryToDb.LoadDbToDataTable(databaseConnection);
+            sqlQueryToDb.deleteFromDb(tableName, id, databaseConnection);
+            dgvUpdate();
         }
 
 
@@ -115,8 +115,9 @@ namespace ProNaturGmbH
             textBox_Preis.Text = "";
             comboBox_Kategorie.SelectedIndex = -1; // Deselektiert mit -1
 
-            sqlQueryToDb.LoadDbToDataTable(databaseConnection);
+            sqlQueryToDb.LoadDbToDataTable(tableName, databaseConnection);
         }
+
 
         private void dgv_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -131,6 +132,11 @@ namespace ProNaturGmbH
             dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv.MultiSelect = false;
             dgv.ClearSelection();
+        }
+
+        public void dgvUpdate()
+        {
+            dgv.DataSource = sqlQueryToDb.LoadDbToDataTable(tableName, databaseConnection);
         }
     }
 }

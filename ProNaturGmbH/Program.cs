@@ -16,8 +16,6 @@ namespace ProNaturGmbH
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            // Startfenster 
-            //Application.Run(new LoadingScreen());
             Application.Run(new LoadingScreen());
         }
     }
