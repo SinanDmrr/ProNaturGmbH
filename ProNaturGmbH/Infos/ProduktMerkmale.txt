@@ -1,0 +1,19 @@
+﻿Ein Produkt:
+- Name	-> String
+- Marke	-> String
+- Kategorie	-> String
+- Preis	-> double
+
+Beispiel:
+- Apfel
+- JuicyApples
+- Obst
+- 2,99€
+
+Was soll der User können
+Soll
+- neue Produkte anlegen	-> Create
+- Produkte bearbeiten	-> Update
+- Produkte löschen		-> Clear
+Kann
+- Textfelder auf Default 

@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ProNaturGmbH
@@ -37,11 +30,11 @@ namespace ProNaturGmbH
             }
             else
             {
+                this.Hide(); // Schließt das aktuelle Form-Element -> this / dieses 
                 timer1.Stop();
-
+                MainMenuScreen mainMenuScreen = new MainMenuScreen();   // Neues MainManueScreen Element -> Das Form was wird dem Projekt hinzugefügt haben
+                mainMenuScreen.Show();  // mit Show zeigen wir dieses neue Form Element an 
             }            
-        }
-
-        
+        }        
     }
 }
