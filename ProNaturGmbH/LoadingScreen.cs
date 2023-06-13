@@ -38,6 +38,7 @@ namespace ProNaturGmbH
             else
             {
                 timer1.Stop();
+
             }            
         }
 
